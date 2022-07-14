@@ -36,14 +36,15 @@ sshagent(['73fe0b59-ad37-4a6d-8ee9-155ba8cbfb21']) {
 }
 catch(e){
 currentBuild.result = "FAILURE"
+throw e
 }
 finally{
 slacknotification{currentBuild.result}
 
 }
 
-
 }// node closing
+
 def slacknotifications(String buildStatus = 'STARTED') {
   
   buildStatus =  buildStatus ?: 'SUCCESS'
