@@ -1,6 +1,12 @@
   pipeline{
 
-     agent any
+    // agent any
+    
+      agent {  
+      label "nodes"
+       }
+    
+    
      parameters {
       choice choices: ['development', 'master', 'qa'], description: 'selectbranchname', name: 'branchname'
       }
