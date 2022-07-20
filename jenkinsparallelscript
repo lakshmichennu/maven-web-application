@@ -1,0 +1,40 @@
+ pipeline{
+       agent any
+       tools{
+           maven 'maven 3.8.5'
+       }
+       
+   
+   stages{
+   
+   
+   //get the code from Github
+     stage('CheckoutCode'){
+     steps{
+         
+      git branch: 'master' , credentialsId:  '780b15b1-70cc-4f21-bb0b-3f61db7d6352', url: 'https://github.com/lakshmichennu/maven-web-application.git'
+     }
+     
+     }
+     //run junit test cases &do the build
+    stage('RunUnitTestcases&Build'){
+     steps{
+     parallel(
+
+      RunUnitTestcases:{
+         sh "mvn test"
+          },
+
+        Build: {
+          sh "mvn clean package"   
+           }
+
+
+       )
+
+     }
+     }
+    
+     
+   }//stages closed
+   }
